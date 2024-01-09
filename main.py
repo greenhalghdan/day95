@@ -3,6 +3,31 @@ from turtle import Screen, Turtle
 from player import Player
 from alien import Alien
 from bullet import Bullet
+import threading
+
+
+def move_alien():
+    blocks_left_side = False
+    blocks_right_side = True
+    while blocks_right_side:
+        screen.update()
+        for block in blocks:
+            block.move_left()
+        time.sleep(2)
+        for block in blocks:
+            if block.xcor() == -500:
+                blocks_left_side = True
+                blocks_right_side = False
+    while blocks_left_side:
+        screen.update()
+        for block in blocks:
+            block.move_right()
+        time.sleep(2)
+        for block in blocks:
+            if block.xcor() == 500:
+                blocks_left_side = False
+                blocks_right_side = True
+    time.sleep(2)
 
 def user_alert(message):
     ALIGNMENT = "center"
@@ -19,49 +44,62 @@ screen.title("Space Invaders")
 
 screen.tracer(0)
 
-paddle = Player((0, -200))
+player = Player((0, -200))
 blocks = []
-block01 = Alien((-200,200), "red")
-block03 = Alien((100,200),"red")
-block05 = Alien((200,200),"red")
 
-block11 = Alien((-200,180), "orange")
-block13 = Alien((200,180),"orange")
-block15 = Alien((-100,180),"orange")
+block01 = Alien((-200,200), "green")
+block02 = Alien((-100,200), "green")
+block03 = Alien((0,200), "green")
+block04 = Alien((100,200),"green")
+block05 = Alien((200,200),"green")
 
-block21 = Alien((-200,160), "yellow")
-block23 = Alien((200,160),"yellow")
-block25 = Alien((100,160),"yellow")
+# block11 = Alien((-200,180), "green")
+# block13 = Alien((200,180),"green")
+# block15 = Alien((-100,180),"green")
 
-block31 = Alien((-200,140), "green")
-block33 = Alien((200,140),"green")
-block35 = Alien((100,140), "green")
+block21 = Alien((-200,160), "green")
+block22 = Alien((-100,160),"green")
+block23 = Alien((0,160),"green")
+block24 = Alien((100,160),"green")
+block25 = Alien((200,160),"green")
 
-block41 = Alien((-200,120), "blue")
-block43 = Alien((200,120),"blue")
-block45 = Alien((-100,120), "blue")
+# block31 = Alien((-200,140), "green")
+# block33 = Alien((200,140),"green")
+# block35 = Alien((100,140), "green")
+
+block41 = Alien((-200,120), "green")
+block42 = Alien((-100,120), "green")
+block43 = Alien((0,120), "green")
+block44 = Alien((100,120), "green")
+block45 = Alien((200,120),"green")
+
 
 blocks.append(block01)
+blocks.append(block02)
 blocks.append(block03)
+blocks.append(block04)
 blocks.append(block05)
 
-blocks.append(block11)
-blocks.append(block13)
-blocks.append(block15)
+# blocks.append(block11)
+# blocks.append(block13)
+# blocks.append(block15)
 
 blocks.append(block21)
+blocks.append(block22)
 blocks.append(block23)
+blocks.append(block24)
 blocks.append(block25)
 
-blocks.append(block31)
-blocks.append(block33)
-blocks.append(block35)
+# blocks.append(block31)
+# blocks.append(block33)
+# blocks.append(block35)
 
 blocks.append(block41)
+blocks.append(block42)
 blocks.append(block43)
+blocks.append(block44)
 blocks.append(block45)
 
-bullet = Bullet()
 screen.listen()
 screen.onkey(player.move_left, "Left")
 screen.onkey(player.move_right, "Right")
@@ -73,28 +111,8 @@ playing = True
 while playing:
     time.sleep(0.01)
     screen.update()
-    if ball.ycor() > 250 or ball.ycor() < -250:
-        ball.bounce_y()
-    if ball.xcor() > 220 or ball.xcor() < -220:
-        ball.bounce_x()
-    for block in blocks:
-        w = int(ball.ycor())
-        x = int(ball.xcor())
-        y = int(block.xcor())
-        z = int(block.ycor())
-        if w > z - 20 and w < z + 20 and x > y - 50 and x < y + 50:
-            ball.bounce_y()
-            block.goto(30000, 3000)
-            blocks.remove(block)
-            block._hidden_from_screen = True
-    if ball.distance(paddle) < 50:
-        ball.bounce_y()
-    if len(blocks) <= 0:
-        user_alert(message="You Win")
-        playing = False
-    if int(ball.ycor()) < -249:
-        user_alert(message="You Lose")
-        playing = False
+    move_alien()
+
 
 screen.update()
 screen.exitonclick()

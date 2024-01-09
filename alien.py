@@ -8,7 +8,7 @@ class Alien(Turtle):
         self.shape("square")
         self.shapesize(
             stretch_wid=1,
-            stretch_len=5
+            stretch_len=2.5
         )
         self.color(colour)
         self.speed("fastest")
@@ -16,8 +16,8 @@ class Alien(Turtle):
 
     def move_left(self):
         new_x = self.xcor() - 20
-        self.goto(x=new_x,y=-200)
+        self.goto(x=new_x, y=self.ycor())
 
     def move_right(self):
         new_x = self.xcor() + 20
-        self.goto(x=new_x,y=-200)
+        self.goto(x=new_x, y=self.ycor())

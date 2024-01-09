@@ -1,5 +1,5 @@
 from turtle import Turtle
-
+from bullet import Bullet
 class Player(Turtle):
     def __init__(self, pos):
         super().__init__()
@@ -22,4 +22,5 @@ class Player(Turtle):
         self.goto(x=new_x,y=-200)
 
     def shoot(self):
-        pass
+        bullet = Bullet()
+        bullet.move_ball()
