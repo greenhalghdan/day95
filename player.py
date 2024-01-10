@@ -14,13 +14,21 @@ class Player(Turtle):
         self.goto(pos)
 
     def move_left(self):
-        new_x = self.xcor() - 20
-        self.goto(x=new_x,y=-200)
+        print(self.xcor())
+        if self.xcor() != -500:
+            new_x = self.xcor() - 20
+            self.goto(x=new_x,y=-200)
 
     def move_right(self):
-        new_x = self.xcor() + 20
-        self.goto(x=new_x,y=-200)
+        # print(self.ycor())
+        if self.xcor() != 500:
+            new_x = self.xcor() + 20
+            self.goto(x=new_x,y=-200)
 
-    def shoot(self):
+    def shoot(self, aliens):
         bullet = Bullet()
-        bullet.move_ball()
+        for alien in aliens:
+            if bullet.ycor() and bullet.xcor() == alien:
+                alien.goto(y=3000, x=3000)
+            bullet.move_bullet()
+
