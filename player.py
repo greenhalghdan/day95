@@ -1,5 +1,6 @@
 from turtle import Turtle
 from bullet import Bullet
+import threading
 class Player(Turtle):
     def __init__(self, pos):
         super().__init__()
@@ -27,8 +28,10 @@ class Player(Turtle):
 
     def shoot(self, aliens):
         bullet = Bullet()
+        bullet.goto(y=self.ycor(),x=self.xcor())
+        bullet.move_bullet()
         for alien in aliens:
             if bullet.ycor() and bullet.xcor() == alien:
                 alien.goto(y=3000, x=3000)
-            bullet.move_bullet()
+
 

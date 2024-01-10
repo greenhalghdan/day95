@@ -30,6 +30,19 @@ def move_alien():
     time.sleep(0.1)
 
 
+def movebullet(bullet):
+    while True:
+        bullet.move_bullet()
+        print('did I move?')
+        screen.update()
+        time.sleep(0.1)
+
+
+def CreateBullet(thred):
+    bullet = Bullet()
+    threading.Thread.join(thred, movebullet(bullet))
+    # movebullet(bullet)
+
 def user_alert(message):
     ALIGNMENT = "center"
     FONT = ("times new roman", 24, "normal")
@@ -93,16 +106,18 @@ blocks.append(block45)
 screen.listen()
 screen.onkey(player.move_left, "Left")
 screen.onkey(player.move_right, "Right")
-screen.onkey(player.shoot, 'space')
+# screen.onkey(, 'l') I think I need to stop trying to put the bullet in its own thrad and deal with it in a while loop in a function and do the similar thing i did with breakout and check if it hits an alien.... will need to then test if this stops the person or aliens from moving but i dont think it wil....
 
 
 playing = True
 while playing:
-    aliens = threading.Thread(move_alien())
-    aliens.start()
+    thred = threading.Thread(move_alien())
+    thred.start()
+    screen.onkey(CreateBullet(thred), 'l')
+    # shoot = threading.Thread(screen.onkey(player.shoot(aliens=blocks), 'space'))
+    # shoot.start()
     time.sleep(0.01)
     screen.update()
-
 
 screen.update()
 screen.exitonclick()

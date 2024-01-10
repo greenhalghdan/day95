@@ -13,7 +13,9 @@ class Bullet(Turtle):
     def move_bullet(self):
         # new_x = self.xcor() + self.x_move
         new_y = self.ycor() + self.y_move
-        self.goto(self.ycor(), new_y)
-        self.move_speed *= 0.9
+        self.goto(x = self.xcor(), y= new_y)
+        print(self.ycor())
+        print(self.ycor() + self.y_move)
+        print(self.ycor(), self.xcor())
 
 
