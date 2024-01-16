@@ -1,6 +1,7 @@
 from turtle import Turtle
 from bullet import Bullet
 import threading
+
 class Player(Turtle):
     def __init__(self, pos):
         super().__init__()
@@ -15,7 +16,6 @@ class Player(Turtle):
         self.goto(pos)
 
     def move_left(self):
-        print(self.xcor())
         if self.xcor() != -500:
             new_x = self.xcor() - 20
             self.goto(x=new_x,y=-200)
